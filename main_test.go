@@ -15,4 +15,13 @@ func TestingGame(t *testing.T) {
 			t.Error("Incorect Dragon damage")
 		}
 	})
+	t.Run("Test enumerator", func(t *testing.T) {
+		enumerator := 0
+		for i := 0; i < 10; i++ {
+			enumerator = GameStatus(enumerator)
+		}
+		if enumerator != 9 {
+			t.Error("Incorect enumerator work")
+		}
+	})
 }
