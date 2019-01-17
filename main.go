@@ -24,32 +24,38 @@ func GameStatus(i int) int {
 	return i
 }
 
-func HeroHit() {
+func HeroHit(damage int) int {
 	miss := rand.Intn(100)
 	if miss >= 50 {
-		Dragon.HP -= Hero.damage
+		return damage
+	} else {
+		return 0
 	}
 }
 
-func HeroHealing() {
-	Hero.HP += 20
-	if Hero.HP >= 100 {
-		Hero.HP = 100
+func HeroHealing(HP int) int {
+	HP += 20
+	if HP >= 100 {
+		return 100
+	} else {
+		return HP
 	}
 }
 
 func HeroTurn(answer int) {
 	if answer == 1 {
-		HeroHit()
+		Dragon.HP -= HeroHit(Hero.damage)
 	} else {
-		HeroHealing()
+		Hero.HP = HeroHealing(Hero.HP)
 	}
 }
 
-func DragonTurn() {
+func DragonTurn(damage int) int {
 	miss := rand.Intn(100)
 	if miss >= 60 {
-		Hero.HP -= Dragon.damage
+		return damage
+	} else {
+		return 0
 	}
 }
 
@@ -66,7 +72,7 @@ func GameRun() {
 			i--
 		} else {
 			HeroTurn(answer)
-			DragonTurn()
+			Hero.HP -= DragonTurn(Dragon.damage)
 			if Hero.HP <= 0 {
 				fmt.Println("Герой проиграл за ", i, " ходов")
 				break
