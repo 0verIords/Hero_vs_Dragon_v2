@@ -12,7 +12,7 @@ type Persona struct {
 }
 
 var Hero = Persona{100, 10}
-var Dragon = Persona{100, 25}
+var Dragon = Persona{100, 40}
 
 func GameStatus(i int) int {
 	fmt.Println("#+++++++++++++++++++++++++++++++")
@@ -74,6 +74,14 @@ func GameRun() {
 		} else {
 			damage = heroTurn(damage, answer)
 			damage = dragonTurn(damage)
+			if Hero.HP <= 0 {
+				fmt.Println("Герой проиграл за ", i , " ходов")
+				break
+			}
+			if Dragon.HP <= 0 {
+				fmt.Println("Герой победил за ", i , " ходов")
+				break
+			}
 		}
 	}
 }
