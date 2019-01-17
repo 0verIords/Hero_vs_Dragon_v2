@@ -24,56 +24,49 @@ func GameStatus(i int) int {
 	return i
 }
 
-func heroTurn(damage, answer int) int {
-	if damage != 0 {
-		Hero.HP -= damage
-	}
-	if answer == 1 {
-
-		miss := rand.Intn(100)
-		if miss >= 50 {
-			return Hero.damage
-		} else {
-			return 0
-		}
-	} else {
-		if Hero.HP >= 100 {
-			Hero.HP = 100
-		} else {
-			Hero.HP += 20
-		}
-		return 0
+func HeroHit() {
+	miss := rand.Intn(100)
+	if miss >= 50 {
+		Dragon.HP -= Hero.damage
 	}
 }
 
-func dragonTurn(damage int) int {
-	if damage != 0 {
-		Dragon.HP -= damage
+func HeroHealing() {
+	Hero.HP += 20
+	if Hero.HP >= 100 {
+		Hero.HP = 100
 	}
+}
 
+func HeroTurn(answer int) {
+	if answer == 1 {
+		HeroHit()
+	} else {
+		HeroHealing()
+	}
+}
+
+func DragonTurn() {
 	miss := rand.Intn(100)
 	if miss >= 60 {
-		return Dragon.damage
-	} else {
-		return 0
+		Hero.HP -= Dragon.damage
 	}
 }
 
 func GameRun() {
 	var i int
 	var answer int
-	var damage int
 	for {
 		i = GameStatus(i)
 		fmt.Println("#1) Ударить")
 		fmt.Println("#2) Лечиться")
 		fmt.Print("#Выбор: ")
 		fmt.Fscan(os.Stdin, &answer)
-		if answer >= 3 {
+		if answer != 1 && answer != 2 {
 			i--
 		} else {
-			damage = heroTurn(damage, answer)
-			damage = dragonTurn(damage)
+			HeroTurn(answer)
+			DragonTurn()
 			if Hero.HP <= 0 {
 				fmt.Println("Герой проиграл за ", i, " ходов")
 				break
