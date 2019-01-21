@@ -1,6 +1,8 @@
 package main
 
 import (
+	"fmt"
+	"strings"
 	"testing"
 )
 
@@ -26,5 +28,14 @@ func TestHill(t *testing.T) {
 			t.Errorf("Неправильный выход! (%v) (%v)", hill, out[i])
 		}
 
+	}
+}
+
+func TestGameStatus(t *testing.T) {
+	s := strings.Repeat("#", 15)
+	var in = gameStatus(15, 55, 44)
+	var out = fmt.Sprintf("%s \n#Ход: %v \n#Здоровье Героя: %v \n#Здоровье дракона: %v \n%s", s, 15, 55, 44, s)
+	if in != out {
+		t.Errorf("Неправильная проверка строк")
 	}
 }
