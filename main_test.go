@@ -32,8 +32,9 @@ func TestHill(t *testing.T) {
 }
 
 func TestGameStatus(t *testing.T) {
+	game := Game(15, 55, 44)
 	s := strings.Repeat("#", 15)
-	var in = gameStatus(15, 55, 44)
+	var in = gameStatus(game)
 	var out = fmt.Sprintf("%s \n#Ход: %v \n#Здоровье Героя: %v \n#Здоровье дракона: %v \n%s", s, 15, 55, 44, s)
 	if in != out {
 		t.Errorf("Неправильная проверка строк")

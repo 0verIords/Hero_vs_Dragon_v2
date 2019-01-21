@@ -17,9 +17,15 @@ type ParameterDragon struct {
 	Damage   int
 }
 
-func gameStatus(i, heroHitPoint, dragonHitPoint int) string {
+type Game struct {
+	i              int
+	HeroHitPoint   int
+	DragonHitPoint int
+}
+
+func gameStatus(g Game) string {
 	s := strings.Repeat("#", 15)
-	return fmt.Sprintf("%s \n#Ход: %v \n#Здоровье Героя: %v \n#Здоровье дракона: %v \n%s", s, i, heroHitPoint, dragonHitPoint, s)
+	return fmt.Sprintf("%s \n#Ход: %v \n#Здоровье Героя: %v \n#Здоровье дракона: %v \n%s", s, g.i, g.HeroHitPoint, g.DragonHitPoint, s)
 }
 
 func hit(hit int) int {
@@ -59,9 +65,9 @@ func gameRun() {
 
 	hero := ParameterHero{100, 10}
 	dragon := ParameterDragon{100, 40}
-
 	for {
-		fmt.Println(gameStatus(i, hero.HitPoint, dragon.HitPoint))
+		game := Game{i, hero.HitPoint, dragon.HitPoint}
+		fmt.Println(gameStatus(game))
 		fmt.Println("#1) Ударить")
 		fmt.Println("#2) Лечиться")
 		fmt.Print("#Выбор: ")
@@ -85,7 +91,7 @@ func gameRun() {
 			i++
 		}
 		if hero.HitPoint <= 0 {
-			fmt.Printf("#Герой проиграл за %v ходов", i)
+			fmt.Printf("#Дракон выйграл за %v ходов", i)
 			break
 		}
 		if dragon.HitPoint <= 0 {
