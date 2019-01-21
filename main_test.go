@@ -4,24 +4,27 @@ import (
 	"testing"
 )
 
-func TestingGame(t *testing.T) {
-	t.Run("Test damage", func(t *testing.T) {
-		damage := heroTurn(20, 1)
-		if damage != 10 && damage != 0 {
-			t.Error("Incorect Hero damage")
+func damageTest(t *testing.T) {
+	var in = []int{50, 40, 100, 90}
+	var out = []int{60, 60, 0, 10}
+	for i := 0; i < len(out); i++ {
+		hitPoint := 100
+		hitPoint -= hit(in[i])
+		if hitPoint != out[i] {
+			t.Errorf("Неправильный выход! (%v) (%v)", hitPoint, out[i])
 		}
-		damage = dragonTurn(20)
-		if damage != 40 && damage != 0 {
-			t.Error("Incorect Dragon damage")
+
+	}
+}
+
+func hillTest(t *testing.T) {
+	var in = []int{100, 55, 15, 90, 35}
+	var out = []int{100, 75, 35, 100, 55}
+	for i := 0; i < len(out); i++ {
+		hill := heroHill(in[i])
+		if hill != out[i] {
+			t.Errorf("Неправильный выход! (%v) (%v)", hill, out[i])
 		}
-	})
-	t.Run("Test enumerator", func(t *testing.T) {
-		enumerator := 0
-		for i := 0; i < 10; i++ {
-			enumerator = GameStatus(enumerator)
-		}
-		if enumerator != 9 {
-			t.Error("Incorect enumerator work")
-		}
-	})
+
+	}
 }
