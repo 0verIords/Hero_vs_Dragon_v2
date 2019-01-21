@@ -7,25 +7,25 @@ import (
 	"strings"
 )
 
-type ParameterHero struct {
+type Hero struct {
 	HitPoint int
 	Damage   int
 }
 
-type ParameterDragon struct {
+type Dragon struct {
 	HitPoint int
 	Damage   int
 }
 
 type Game struct {
-	i              int
+	Counter        int
 	HeroHitPoint   int
 	DragonHitPoint int
 }
 
 func gameStatus(g Game) string {
 	s := strings.Repeat("#", 15)
-	return fmt.Sprintf("%s \n#Ход: %v \n#Здоровье Героя: %v \n#Здоровье дракона: %v \n%s", s, g.i, g.HeroHitPoint, g.DragonHitPoint, s)
+	return fmt.Sprintf("%s \n#Ход: %v \n#Здоровье Героя: %v \n#Здоровье дракона: %v \n%s", s, g.Counter, g.HeroHitPoint, g.DragonHitPoint, s)
 }
 
 func hit(hit int) int {
@@ -60,13 +60,13 @@ func miss(damage int) int {
 
 func gameRun() {
 	var answer string
-	var i int
+	var turn int
 	var damage int
 
-	hero := ParameterHero{100, 10}
-	dragon := ParameterDragon{100, 40}
+	hero := Hero{100, 10}
+	dragon := Dragon{100, 40}
 	for {
-		game := Game{i, hero.HitPoint, dragon.HitPoint}
+		game := Game{turn, hero.HitPoint, dragon.HitPoint}
 		fmt.Println(gameStatus(game))
 		fmt.Println("#1) Ударить")
 		fmt.Println("#2) Лечиться")
@@ -88,14 +88,14 @@ func gameRun() {
 			damage = miss(hit(dragon.Damage))
 			fmt.Printf("#Дракон нанес %v урона\n", damage)
 			hero.HitPoint -= damage
-			i++
+			turn++
 		}
 		if hero.HitPoint <= 0 {
-			fmt.Printf("#Дракон выйграл за %v ходов", i)
+			fmt.Printf("#Дракон выйграл за %v ходов", turn)
 			break
 		}
 		if dragon.HitPoint <= 0 {
-			fmt.Printf("#Герой выйграл за %v ходов", i)
+			fmt.Printf("#Герой выйграл за %v ходов", turn)
 			break
 		}
 	}
