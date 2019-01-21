@@ -1,8 +1,6 @@
 package main
 
 import (
-	"fmt"
-	"strings"
 	"testing"
 )
 
@@ -21,22 +19,22 @@ func TestDamage(t *testing.T) {
 
 func TestHill(t *testing.T) {
 	var in = []int{100, 55, 81, 90, 35, 96}
-	var out = []int{0, 20, 19, 10, 20, 4}
+	var out = []int{100, 75, 100, 100, 55, 100}
 	for i := 0; i < len(out); i++ {
-		hill := heroHill(in[i])
-		if hill != out[i] {
-			t.Errorf("Неправильный выход! (%v) (%v)", hill, out[i])
+		heroHill(&in[i])
+		if in[i] != out[i] {
+			t.Errorf("Неправильный выход! (%v) != (%v)", in[i], out[i])
 		}
 
 	}
 }
 
-func TestGameStatus(t *testing.T) {
-	game := Game(15, 55, 44)
-	s := strings.Repeat("#", 15)
-	var in = gameStatus(game)
-	var out = fmt.Sprintf("%s \n#Ход: %v \n#Здоровье Героя: %v \n#Здоровье дракона: %v \n%s", s, 15, 55, 44, s)
-	if in != out {
-		t.Errorf("Неправильная проверка строк")
-	}
-}
+// func TestGameStatus(t *testing.T) {
+// 	game := Game(15, 55, 44)
+// 	s := strings.Repeat("#", 15)
+// 	var in = gameStatus(game)
+// 	var out = fmt.Sprintf("%s \n#Ход: %v \n#Здоровье Героя: %v \n#Здоровье дракона: %v \n%s", s, 15, 55, 44, s)
+// 	if in != out {
+// 		t.Errorf("Неправильная проверка строк")
+// 	}
+// }
