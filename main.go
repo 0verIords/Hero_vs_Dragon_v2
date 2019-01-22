@@ -23,7 +23,7 @@ type Game struct {
 	DragonHitPoint int
 }
 
-func gameStatus(g Game) string {
+func (g Game) gameStatus() string {
 	s := strings.Repeat("#", 15)
 	return fmt.Sprintf("%s \n#Ход: %v \n#Здоровье Героя: %v \n#Здоровье дракона: %v \n%s", s, g.Counter, g.HeroHitPoint, g.DragonHitPoint, s)
 }
@@ -32,12 +32,14 @@ func hit(hit int) int {
 	return hit
 }
 
-func heroHill(heroHitPoint int) int {
-	if heroHitPoint <= 80 {
-		return 20
+func (hero *Hero) heroHill() {
+	if hero.HitPoint <= 80 {
+		hero.HitPoint += 20
+
 	} else {
-		hill := 100 - heroHitPoint
-		return hill
+		hill := 100 - hero.HitPoint
+		hero.HitPoint += hill
+
 	}
 }
 
@@ -67,7 +69,7 @@ func gameRun() {
 	dragon := Dragon{100, 40}
 	for {
 		game := Game{turn, hero.HitPoint, dragon.HitPoint}
-		fmt.Println(gameStatus(game))
+		fmt.Println(game.gameStatus())
 		fmt.Println("#1) Ударить")
 		fmt.Println("#2) Лечиться")
 		fmt.Print("#Выбор: ")
@@ -81,9 +83,8 @@ func gameRun() {
 				fmt.Printf("#Герой нанес %v урона\n", damage)
 				dragon.HitPoint -= damage
 			} else {
-				hill := heroHill(hero.HitPoint)
-				fmt.Printf("#Герой вылечился на %v хп\n", hill)
-				hero.HitPoint += hill
+				hero.heroHill()
+				fmt.Println("#Герой вылечился")
 			}
 			damage = miss(hit(dragon.Damage))
 			fmt.Printf("#Дракон нанес %v урона\n", damage)
