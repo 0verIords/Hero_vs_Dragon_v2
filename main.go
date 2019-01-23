@@ -43,6 +43,14 @@ func (hero *Hero) heroHill() {
 	}
 }
 
+func selectCheak(answer string) string {
+	if answer != "1" && answer != "2" {
+		return "#Неправильный ввод!\n#Нужно вводить только 1 или 2"
+	} else {
+		return answer
+	}
+}
+
 func miss(damage int) int {
 	miss := rand.Intn(100)
 	if damage == 10 {
@@ -74,9 +82,9 @@ func gameRun() {
 		fmt.Println("#2) Лечиться")
 		fmt.Print("#Выбор: ")
 		fmt.Fscan(os.Stdin, &answer)
+		answer = selectCheak(answer)
 		if answer != "1" && answer != "2" {
-			fmt.Println("#Неправильный ввод!")
-			fmt.Println("#Нужно вводить только 1 или 2")
+			fmt.Println(answer)
 		} else {
 			if answer == "1" {
 				damage = miss(hit(hero.Damage))

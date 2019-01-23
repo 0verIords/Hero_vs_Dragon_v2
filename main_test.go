@@ -41,3 +41,27 @@ func TestGameStatus(t *testing.T) {
 		t.Errorf("Неправильная проверка строк")
 	}
 }
+
+func TestMiss(t *testing.T) {
+	var in = []int{10, 40, 60, 100, 90, 6}
+	var out = []int{10, 40, 60, 100, 90, 6}
+	for i := 0; i < len(out); i++ {
+		ans := miss(in[i])
+		if ans != out[i] && ans != 0 {
+			t.Errorf("random does not work correct")
+		}
+	}
+}
+
+func TestChoice(t *testing.T) {
+	var in = []string{"1", "2", "qweqwe", "sdhsbhsa", "12", "!$@", "sdsda2", "wq"}
+	correct_answer := "#Неправильный ввод!\n#Нужно вводить только 1 или 2"
+	for i := 0; i < len(in); i++ {
+		answer := selectCheak(in[i])
+		if answer != "1" && answer != "2" {
+			if answer != correct_answer {
+				t.Errorf("Не правильная работа выбора")
+			}
+		}
+	}
+}
