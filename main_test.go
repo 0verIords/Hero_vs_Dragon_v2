@@ -57,11 +57,54 @@ func TestChoice(t *testing.T) {
 	var in = []string{"1", "2", "qweqwe", "sdhsbhsa", "12", "!$@", "sdsda2", "wq"}
 	correct_answer := "#Неправильный ввод!\n#Нужно вводить только 1 или 2"
 	for i := 0; i < len(in); i++ {
-		answer := selectCheak(in[i])
+		answer := selectCheck(in[i])
 		if answer != "1" && answer != "2" {
 			if answer != correct_answer {
 				t.Errorf("Не правильная работа выбора")
 			}
+		}
+	}
+}
+
+func TestCheckWin(t *testing.T) {
+	var in = []int{100, 0, -20, 10, 30}
+	var out = []bool{true, false, false, true, true}
+	for i := 0; i < len(in); i++ {
+		game := Game{i, in[i], 20}
+		answer := game.gameWin()
+		if answer != out[i] {
+			t.Error("Не правильно работает функция gameWin")
+		}
+	}
+}
+
+func TestHeroTurn(t *testing.T) {
+	var in = []string{"1", "0", "2", "1", "2", "4", "5", "6"}
+	for i := 0; i < len(in); i++ {
+		hero := Hero{100, 10}
+		answer := hero.heroTurn(in[i])
+		if answer != 0 && answer != hero.Damage {
+			t.Error("Не правильная работа heroTurn")
+		}
+	}
+}
+
+func TestDragonTurn(t *testing.T) {
+	var in = []int{10, 40, 60, 100, 90, 6}
+	for i := 0; i < len(in); i++ {
+		answer := dragonTurn(in[i])
+		if answer != 0 && answer != in[i] {
+			t.Error("Не правильная работа dragonTurn")
+		}
+	}
+}
+
+func TestGameInput(t *testing.T) {
+	var in = []string{"1", "0", "2", "1", "2", "4", "5", "6"}
+	for i := 0; i < len(in); i++ {
+		answer := gameInput(in[i])
+		if answer != in[i] {
+			t.Error("Не правильная работа gameInput")
 		}
 	}
 }
