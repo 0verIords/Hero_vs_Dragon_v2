@@ -108,3 +108,10 @@ func TestGameInput(t *testing.T) {
 		}
 	}
 }
+
+func TestGameRun(t *testing.T) {
+	ans := gameRun(false)
+	if ans != true {
+		t.Error("Не правильная работа gameInput")
+	}
+}

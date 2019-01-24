@@ -109,11 +109,10 @@ func dragonTurn(damage int) int {
 	return damage
 }
 
-func gameRun() {
+func gameRun(gameover bool) bool {
 	var answer string
 	var turn int
 
-	gameover := true
 	hero := Hero{100, 10}
 	dragon := Dragon{100, 40}
 	for gameover {
@@ -132,9 +131,10 @@ func gameRun() {
 			}
 		}
 	}
+	return true
 
 }
 
 func main() {
-	gameRun()
+	gameRun(true)
 }
